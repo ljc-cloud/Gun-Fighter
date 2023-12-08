@@ -129,30 +129,32 @@ public class WeaponControl : MonoBehaviour
     {
         if (!IsAuto)
         {
-            GameObject bullet = Instantiate(BulletPrefab, BulletStartPoint.position, BulletStartPoint.rotation);
-            bullet.transform.Rotate(0, 180, 0);
-            PlayShootAudio();
-            bullet.GetComponent<Rigidbody>().AddForce(BulletStartPoint.forward * BulletStartVelocity, ForceMode.Impulse);
-            Destroy(bullet, 4f);
+            ProcessFire();
         }
         else
         {
             StartCoroutine("AutoFire");
         }
     }
-
     private IEnumerator AutoFire()
     {
         while (IsAuto && onFire)
         {
-            GameObject bullet = Instantiate(BulletPrefab, BulletStartPoint.position, BulletStartPoint.rotation);
-            bullet.transform.Rotate(0, 180, 0);
-            PlayShootAudio();
-            bullet.GetComponent<Rigidbody>().AddForce(BulletStartPoint.forward * BulletStartVelocity, ForceMode.Impulse);
-            StartCoroutine("WeaponBack");
-            Destroy(bullet, 4f);
+            ProcessFire();
             yield return new WaitForSeconds(PerBulletInterval);
         }
+    }
+
+    private void ProcessFire()
+    {
+        GameObject bullet = Instantiate(BulletPrefab, BulletStartPoint.position, BulletStartPoint.rotation);
+        bullet.transform.Rotate(0, 180, 0);
+        PlayShootAudio();
+        bullet.GetComponent<Rigidbody>().AddForce(BulletStartPoint.forward * BulletStartVelocity, ForceMode.Impulse);
+        bullet.GetComponent<Bullet>().BulletState = BulletState.PLAYER_BULLET;
+        StopCoroutine("WeaponBack");
+        StartCoroutine("WeaponBack");
+        Destroy(bullet, 4f);
     }
 
     private IEnumerator WeaponBack()

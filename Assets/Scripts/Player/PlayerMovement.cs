@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -15,16 +16,16 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Vertical Velocity")]
     public float GravityForce = -10f;
-    [Tooltip("Character In Vertical Force")]public float VerticalVelocity;
+    [Tooltip("Character In Vertical Force")] public float VerticalVelocity;
     public Transform CheckGroundPoint;
     public float CheckGroundRadius;
     public LayerMask GroundLayerMask;
     public KeyCode JumpKey;
-    [Tooltip("Character Jum Max Height")]public float JumMaxHeight = 5f;
+    [Tooltip("Character Jum Max Height")] public float JumMaxHeight = 5f;
 
     [Header("Max Slope Angle")]
     public float MaxSlopeAngle = 30f;
-    [Range(1,10)]
+    [Range(1, 10)]
     public float GravityWhenFallParam = 2f;
 
     private Vector3 moveDir;
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isRun;
     private bool isJump;
     private bool isGround = true;
+    private bool climb;
 
     private void Awake()
     {
@@ -104,7 +106,8 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         isGround = Physics.CheckSphere(CheckGroundPoint.position, CheckGroundRadius, GroundLayerMask);
-        if (isGround) Debug.Log("On The Ground");
+        //Physics.Check
+        //if (isGround) Debug.Log("On The Ground");
     }
 
     /// <summary>
@@ -123,13 +126,56 @@ public class PlayerMovement : MonoBehaviour
     //    transform.rotation = Quaternion.LookRotation(forward, planeNormalDir);
     //}
 
+    #region Fixme ÅÀÌÝ×Ó
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Ladder"))
+    //    {
+    //        climb = true;
+    //        Debug.Log("Climb Ladder");
+    //        StartCoroutine(ClimbLadder());
+    //    }
+    //}
+
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.CompareTag("Ladder"))
+    //    {
+    //        StartCoroutine(ClimbLadder());
+    //    }
+    //}
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("Ladder"))
+    //    {
+    //        climb = false;
+    //        Debug.Log("Leave Ladder");
+    //        StopCoroutine("ClimbLadder");
+    //    }
+    //}
+
+    //private IEnumerator ClimbLadder()
+    //{
+    //    while (climb)
+    //    {
+    //        Debug.Log("HERE");
+    //        var v = Input.GetAxis("Vertical");
+    //        var tarPos = new Vector3(transform.position.x, transform.position.y + v, transform.position.z);
+    //        transform.position = Vector3.Lerp(transform.position, tarPos, 0.02f);
+    //        yield return null;
+    //    }
+    //}
+
+    #endregion
+
     private void AdjustVerticalVelocity()
     {
         if (isGround && VerticalVelocity <= 0)
         {
             VerticalVelocity = 0;
         }
-        else if (!isGround)
+        if (!isGround)
         {
             VerticalVelocity += GravityForce * Time.deltaTime * GravityWhenFallParam;
         }

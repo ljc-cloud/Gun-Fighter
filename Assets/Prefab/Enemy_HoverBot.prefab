@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367488}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Top_R_Ear02_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367490}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Top_R_Ear01_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367496}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Top_Cap_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1666794872417367498}
   - component: {fileID: 1666794872406156494}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367500}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Top_L_Ear02_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367502}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Top_L_Ear01_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367520}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bot_R_Wing01_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367522}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bot_L_Wing03_Jnt_End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,7 +315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367524}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bot_R_Wing03_Jnt_End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367526}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bot_R_Wing02_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -376,7 +376,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367528}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bot_Cap_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1666794872417367530}
   - component: {fileID: 1666794872410462730}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HoverBot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367532}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bot_L_Wing02_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +495,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367534}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bot_L_Wing01_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +526,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367536}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: IrisBlade_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -556,7 +556,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367538}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Front_Panel_C_Jnt_End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367540}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Robot_Root_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -617,7 +617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367542}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Robot_FKRoot_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1666794872417367544}
   - component: {fileID: 1666794872406156488}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EyeBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -740,7 +740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1666794872417367546}
   - component: {fileID: 1666794872406156490}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -829,7 +829,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367548}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Front_Panel_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -860,7 +860,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666794872417367550}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EyeBall_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -882,6 +882,36 @@ Transform:
   m_Father: {fileID: 1666794872417367542}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2379889196599984008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7609454405567603034}
+  m_Layer: 10
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7609454405567603034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2379889196599984008}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.574, z: 0.137}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3826748846841441633}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3585838324451641494
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,9 +921,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3826748846841441633}
-  m_Layer: 0
+  - component: {fileID: 8415097453993843937}
+  - component: {fileID: 8434279853675290830}
+  - component: {fileID: 3222823616778255659}
+  - component: {fileID: 9124602618100705077}
+  m_Layer: 10
   m_Name: Enemy_HoverBot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -911,9 +945,90 @@ Transform:
   m_Children:
   - {fileID: 1666794872417367530}
   - {fileID: 2831800844420175856}
+  - {fileID: 7609454405567603034}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &8415097453993843937
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585838324451641494}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.4
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &8434279853675290830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585838324451641494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da64c0e534fc8142a51bd6c082d2951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyState: 1
+  EnemyBulletPrefab: {fileID: 8328008923941485759, guid: 3df17504e29b03d44a553eb20ef2504d, type: 3}
+  BulletStartPoint: {fileID: 7609454405567603034}
+  bulletStartVelocity: 100
+  PatrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  PlayerTransform: {fileID: 0}
+  IsGuard: 0
+  AlertRadius: 7
+  AttackRadius: 4
+  ChaseSpeedRatio: 1.5
+  AttackInterval: 0.5
+  PatrolStopTime: 1
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!136 &3222823616778255659
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585838324451641494}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.38
+  m_Height: 1.29
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: -0.1}
+--- !u!114 &9124602618100705077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585838324451641494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6aecdf20cc7b843b16a2487308b47c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PH: 100
 --- !u!1 &3949682004265926703
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,7 +1041,7 @@ GameObject:
   - component: {fileID: 8683070027970057832}
   - component: {fileID: 4895043159526547211}
   - component: {fileID: 8071349189867939181}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1024,7 +1139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1478268460473425637}
   - component: {fileID: 1698398734167078829}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PH_Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1092,14 +1207,14 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 2583323441867706121}
+  m_TargetGraphic: {fileID: 6708913785829087322}
   m_FillRect: {fileID: 735368943524238780}
   m_HandleRect: {fileID: 0}
   m_Direction: 1
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 58.3
+  m_Value: 85
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1114,7 +1229,7 @@ GameObject:
   - component: {fileID: 735368943524238780}
   - component: {fileID: 4799935738755044539}
   - component: {fileID: 2583323441867706121}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1168,8 +1283,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d194854d61472d744b8684ceab84264a, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1189,7 +1304,7 @@ GameObject:
   - component: {fileID: 3929153411228671063}
   - component: {fileID: 2621732145056679285}
   - component: {fileID: 6708913785829087322}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1243,7 +1358,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3e7d439637d58744ba13be1b4b74413b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

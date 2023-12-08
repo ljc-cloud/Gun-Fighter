@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8328008923943674495}
   - component: {fileID: 1860185870306395901}
   - component: {fileID: -3062558411439561224}
+  - component: {fileID: 1606478775422661955}
   m_Layer: 9
   m_Name: S_Bullet
   m_TagString: Untagged
@@ -113,3 +114,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: dac2420a19d8c8e46b7d36c8e3817523, type: 3}
+--- !u!114 &1606478775422661955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328008923941485759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62df52d307e81d742b67733d68877057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  bulletState: 0
