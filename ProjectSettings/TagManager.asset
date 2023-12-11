@@ -9,6 +9,7 @@ TagManager:
   - WeaponCamera
   - Ladder
   - Patrol
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Player
   - Ground
   - Bullet
-  - 
+  - Enemy
   - 
   - 
   - 

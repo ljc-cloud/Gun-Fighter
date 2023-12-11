@@ -7,17 +7,19 @@ public enum Enemy_HoverBotState { GUARD, PATROL, CHASE, DEAD }
 
 /// <summary>
 /// HoverBot 控制器 动画、NavMesh
+/// 被玩家攻击时，自动切换状态 Alerted,并锁定玩家位置
 /// TODO 开火特效，玩家打败可能产生血包
 /// </summary>
 public class Enemy_HoverBotController : MonoBehaviour
 {
     // Components
-    private Animator anim;
     private NavMeshAgent agent;
+    private Enemy_HoverBotAnimatorController animatorController;
 
     // Animation
     private bool alerted;
     private bool death;
+    public bool HasAttacked;
 
     // enemyState
     public Enemy_HoverBotState enemyState;
@@ -41,6 +43,7 @@ public class Enemy_HoverBotController : MonoBehaviour
     // Timers
     private float attackTimer;
     private float patrolStopTimer;
+    private float exitAlertTimer;
 
     [Header("Enemy State")]
     public bool IsGuard;
@@ -49,14 +52,14 @@ public class Enemy_HoverBotController : MonoBehaviour
     public float ChaseSpeedRatio = 1.5f;
     public float AttackInterval = 0.5f;
     public float PatrolStopTime = 1f;
+    public float ExitAlertTime = 4f;
 
     [Header("Player Layer Mask")]
     public LayerMask PlayerLayer;
 
-
     private void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
+        animatorController = GetComponent<Enemy_HoverBotAnimatorController>();
         agent = GetComponentInChildren<NavMeshAgent>();
     }
 
@@ -74,6 +77,7 @@ public class Enemy_HoverBotController : MonoBehaviour
         DrawPatrolLine();
         SwitchAnimation();
         DetectPlayer();
+        DetectHasAttacked();
         SetEnemyState();
         TimerTick();
     }
@@ -168,8 +172,9 @@ public class Enemy_HoverBotController : MonoBehaviour
         {
             var lookDir = (PlayerTransform.position - transform.position).normalized;
             var tarRotation = Quaternion.LookRotation(lookDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, tarRotation, 0.1f);  
-            if (lookDir == transform.forward || !alerted)
+            transform.rotation = Quaternion.Slerp(transform.rotation, tarRotation, 0.1f);
+
+            if (Vector3.Angle(transform.forward, lookDir) < 15f || !alerted)
             {
                 break;
             }
@@ -178,9 +183,9 @@ public class Enemy_HoverBotController : MonoBehaviour
         }
         var dir = (PlayerTransform.position - transform.position).normalized;
         GameObject bullet = Instantiate(EnemyBulletPrefab, BulletStartPoint.position, Quaternion.identity);
-        bullet.transform.Rotate(0, 180, 0);
         bullet.GetComponent<Bullet>().BulletState = BulletState.ENEMY_BULLET;
         bullet.GetComponent<Rigidbody>().AddForce(dir * bulletStartVelocity, ForceMode.Impulse);
+        animatorController.TriggerAttack();
         Destroy(bullet, 4f);
     }
 
@@ -205,18 +210,45 @@ public class Enemy_HoverBotController : MonoBehaviour
         if (colliders != null && colliders.Length > 0)
         {
             var collider = colliders[0];
-            if (collider.CompareTag("Player"))
+            if (!alerted && collider.CompareTag("Player"))
             {
-                Debug.Log("Detect Player!!!");
+                Debug.Log("Detect Player");
                 alerted = true;
-                IsGuard = false;
                 PlayerTransform = colliders[0].transform;
             }
         }
-        else
+        else if (!HasAttacked || exitAlertTimer >= ExitAlertTime)
         {
             alerted = false;
             agent.destination = originPatrolPoint;
+        }
+    }
+
+    /// <summary>
+    /// 检测是否被玩家攻击
+    /// </summary>
+    private void DetectHasAttacked()
+    {
+        if (HasAttacked && exitAlertTimer < ExitAlertTime)
+        {
+            exitAlertTimer += Time.deltaTime;
+            alerted = true;
+            PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+        else if (!alerted)
+        {
+            if (HasAttacked && exitAlertTimer >= ExitAlertTime)
+            {
+                HasAttacked = false;
+                alerted = false;
+            }
+            else
+            {
+                exitAlertTimer = 0;
+                HasAttacked = false;
+                alerted = false;
+            }
+          
         }
     }
 
@@ -241,18 +273,15 @@ public class Enemy_HoverBotController : MonoBehaviour
     /// </summary>
     private void SwitchAnimation()
     {
-        if (anim == null)
+        if (animatorController == null)
         {
             Debug.LogError($"EnemyAnimatorController:24, Anim Is Null");
             return;
         }
-        anim.SetFloat("MoveSpeed", agent.velocity.sqrMagnitude);
-        anim.SetBool("Alerted", alerted);
-        anim.SetBool("Death", death);
+        animatorController.MoveSpeed = agent.velocity.sqrMagnitude;
+        animatorController.Alerted = alerted;
+        animatorController.Death = death;
     }
-
-    private void TriggerAttack() => anim?.SetTrigger("Attack");
-    private void TriggerOnDamage() => anim?.SetTrigger("OnDamage");
 
     private void OnDrawGizmos()
     {
