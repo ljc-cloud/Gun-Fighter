@@ -128,3 +128,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   BulletState: 0
+  BulletExplosion: {fileID: 5004660695773619914, guid: a4f5519c7c59aa14b903024f61766bae, type: 3}

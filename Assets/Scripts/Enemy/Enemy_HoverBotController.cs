@@ -185,6 +185,8 @@ public class Enemy_HoverBotController : MonoBehaviour
         GameObject bullet = Instantiate(EnemyBulletPrefab, BulletStartPoint.position, Quaternion.identity);
         bullet.GetComponent<Bullet>().BulletState = BulletState.ENEMY_BULLET;
         bullet.GetComponent<Rigidbody>().AddForce(dir * bulletStartVelocity, ForceMode.Impulse);
+        //bullet.GetComponent<Transform>().localScale = Vector3.one;
+        //bullet
         animatorController.TriggerAttack();
         Destroy(bullet, 4f);
     }
@@ -203,6 +205,7 @@ public class Enemy_HoverBotController : MonoBehaviour
 
     /// <summary>
     /// 侦测用户是否在AlertRadius范围内
+    /// 找到玩家，切换状态 Alerted
     /// </summary>
     private void DetectPlayer()
     {
@@ -226,6 +229,7 @@ public class Enemy_HoverBotController : MonoBehaviour
 
     /// <summary>
     /// 检测是否被玩家攻击
+    /// 被玩家攻击时，自动切换状态 Alerted,并锁定玩家位置
     /// </summary>
     private void DetectHasAttacked()
     {

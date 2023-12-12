@@ -152,6 +152,7 @@ public class WeaponControl : MonoBehaviour
         PlayShootAudio();
         bullet.GetComponent<Rigidbody>().AddForce(BulletStartPoint.forward * BulletStartVelocity, ForceMode.Impulse);
         bullet.GetComponent<Bullet>().BulletState = BulletState.PLAYER_BULLET;
+        //bullet.GetComponent<Transform>().localScale = Vector3.one;
         StopCoroutine("WeaponBack");
         StartCoroutine("WeaponBack");
         Destroy(bullet, 4f);

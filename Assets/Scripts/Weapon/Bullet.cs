@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float damage;
     public BulletState BulletState;
+    public GameObject BulletExplosion;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -15,22 +16,33 @@ public class Bullet : MonoBehaviour
                 if (BulletState == BulletState.ENEMY_BULLET)
                 {
                     collision.gameObject.GetComponent<Health>().TakeDamage(damage);
-                    Destroy(gameObject);
                 }
                 break;
             case "Enemy":
                 if (BulletState == BulletState.PLAYER_BULLET)
                 {
-                    Debug.Log("»÷ÖÐÄ¿±ê");
                     collision.gameObject.GetComponent<Health>().TakeDamage(damage);
                     collision.gameObject.GetComponent<Enemy_HoverBotAnimatorController>().TriggerOnDamaged();
                     collision.gameObject.GetComponent<Enemy_HoverBotController>().HasAttacked = true;
-                    Destroy(gameObject);
+                }
+                else
+                {
+                    Debug.Log("Debug");
                 }
                 break;
             default:
                 break;
         }
-        //Destroy(gameObject);
+        CreateBulletExplosion();
+        Destroy(gameObject);
+    }
+
+    private void CreateBulletExplosion()
+    {
+        if (BulletExplosion)
+        {
+            GameObject exp = Instantiate(BulletExplosion, transform.position, transform.rotation);
+            Destroy(exp, 1.3f);
+        }
     }
 }
