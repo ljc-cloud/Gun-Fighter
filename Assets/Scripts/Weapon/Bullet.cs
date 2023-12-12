@@ -23,7 +23,9 @@ public class Bullet : MonoBehaviour
                 {
                     collision.gameObject.GetComponent<Health>().TakeDamage(damage);
                     collision.gameObject.GetComponent<Enemy_HoverBotAnimatorController>().TriggerOnDamaged();
-                    collision.gameObject.GetComponent<Enemy_HoverBotController>().HasAttacked = true;
+                    Enemy_HoverBotController enemy_HoverBotController = collision.gameObject.GetComponent<Enemy_HoverBotController>();
+                    enemy_HoverBotController.HasAttacked = true;
+                    enemy_HoverBotController.ExitAlertTimer = 0;
                 }
                 else
                 {

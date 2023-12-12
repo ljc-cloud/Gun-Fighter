@@ -15,27 +15,27 @@ using UnityEngine;
 /// TODO 设置准星，使子弹可以命中准星
 /// TODO 添加音效
 /// </summary>
-public class WeaponControl : MonoBehaviour
+public class WeaponControl : Rifle
 {
     // Components
     private AudioSource audioSource;
 
     public TMP_Text ModeText;
 
-    public Transform BulletStartPoint;
-    public GameObject BulletPrefab;
-    public float BulletStartVelocity;
-    public Transform DefaultPoint;
-    public Transform BackPoint;
-    public Vector3 DefaultWeaponCameraPos;
-    public Vector3 AimWeaponCameraPos;
+    //public Transform BulletStartPoint;
+    //public GameObject BulletPrefab;
+    //public float BulletStartVelocity;
+    //public Transform DefaultPoint;
+    //public Transform BackPoint;
+    //public Vector3 DefaultWeaponCameraPos;
+    //public Vector3 AimWeaponCameraPos;
 
-    public bool IsAuto;
-    public float WeaponBackRatio = 0.3f;
-    public float PerBulletInterval = 0.1f;
+    //public bool IsAuto;
+    //public float WeaponBackRatio = 0.3f;
+    //public float PerBulletInterval = 0.1f;
     private bool onFire;
-    private Camera weaponCamera;
-    private Camera mainCamera;
+    //private Camera weaponCamera;
+    //private Camera mainCamera;
 
     private void Awake()
     {
@@ -152,7 +152,6 @@ public class WeaponControl : MonoBehaviour
         PlayShootAudio();
         bullet.GetComponent<Rigidbody>().AddForce(BulletStartPoint.forward * BulletStartVelocity, ForceMode.Impulse);
         bullet.GetComponent<Bullet>().BulletState = BulletState.PLAYER_BULLET;
-        //bullet.GetComponent<Transform>().localScale = Vector3.one;
         StopCoroutine("WeaponBack");
         StartCoroutine("WeaponBack");
         Destroy(bullet, 4f);

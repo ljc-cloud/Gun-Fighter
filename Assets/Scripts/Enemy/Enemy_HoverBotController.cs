@@ -19,6 +19,7 @@ public class Enemy_HoverBotController : MonoBehaviour
     // Animation
     private bool alerted;
     private bool death;
+
     public bool HasAttacked;
 
     // enemyState
@@ -43,7 +44,7 @@ public class Enemy_HoverBotController : MonoBehaviour
     // Timers
     private float attackTimer;
     private float patrolStopTimer;
-    private float exitAlertTimer;
+    public float ExitAlertTimer;
 
     [Header("Enemy State")]
     public bool IsGuard;
@@ -185,8 +186,6 @@ public class Enemy_HoverBotController : MonoBehaviour
         GameObject bullet = Instantiate(EnemyBulletPrefab, BulletStartPoint.position, Quaternion.identity);
         bullet.GetComponent<Bullet>().BulletState = BulletState.ENEMY_BULLET;
         bullet.GetComponent<Rigidbody>().AddForce(dir * bulletStartVelocity, ForceMode.Impulse);
-        //bullet.GetComponent<Transform>().localScale = Vector3.one;
-        //bullet
         animatorController.TriggerAttack();
         Destroy(bullet, 4f);
     }
@@ -220,7 +219,7 @@ public class Enemy_HoverBotController : MonoBehaviour
                 PlayerTransform = colliders[0].transform;
             }
         }
-        else if (!HasAttacked || exitAlertTimer >= ExitAlertTime)
+        else if (!HasAttacked || ExitAlertTimer >= ExitAlertTime)
         {
             alerted = false;
             agent.destination = originPatrolPoint;
@@ -233,22 +232,22 @@ public class Enemy_HoverBotController : MonoBehaviour
     /// </summary>
     private void DetectHasAttacked()
     {
-        if (HasAttacked && exitAlertTimer < ExitAlertTime)
+        if (HasAttacked && ExitAlertTimer < ExitAlertTime)
         {
-            exitAlertTimer += Time.deltaTime;
+            ExitAlertTimer += Time.deltaTime;
             alerted = true;
             PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
         else if (!alerted)
         {
-            if (HasAttacked && exitAlertTimer >= ExitAlertTime)
+            if (HasAttacked && ExitAlertTimer >= ExitAlertTime)
             {
                 HasAttacked = false;
                 alerted = false;
             }
             else
             {
-                exitAlertTimer = 0;
+                ExitAlertTimer = 0;
                 HasAttacked = false;
                 alerted = false;
             }
