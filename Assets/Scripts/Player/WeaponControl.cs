@@ -1,190 +1,75 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.Animations;
 
 /// <summary>
-/// AK47 
-/// 枪口初速 710米/秒
-/// 理论射速 600发/分钟
-/// 弹匣容量 30发
-/// 表尺射程 800米
-/// 有效射程 300米
 /// 
-/// TODO 设置准星，使子弹可以命中准星
-/// TODO 添加音效
 /// </summary>
-public class WeaponControl : Rifle
+public class WeaponControl : MonoBehaviour
 {
-    // Components
-    private AudioSource audioSource;
+    public LayerMask PickUpLayer;
+    public Transform WeaponParentTransform;
 
-    public TMP_Text ModeText;
+    public event Action<bool> OnDetectWeapon;
+    public event Action OnDropWeapon;
 
-    //public Transform BulletStartPoint;
-    //public GameObject BulletPrefab;
-    //public float BulletStartVelocity;
-    //public Transform DefaultPoint;
-    //public Transform BackPoint;
-    //public Vector3 DefaultWeaponCameraPos;
-    //public Vector3 AimWeaponCameraPos;
+    private bool couldPickUp;
+    private GameObject weaponObj;
 
-    //public bool IsAuto;
-    //public float WeaponBackRatio = 0.3f;
-    //public float PerBulletInterval = 0.1f;
-    private bool onFire;
-    //private Camera weaponCamera;
-    //private Camera mainCamera;
+    private readonly int WEAPON_LAYER = 6;
 
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-    }
-
-    private void Start()
-    {
-        weaponCamera = GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>();
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-    }
+    public Dictionary<string, int> WeaponBulletLeft = new Dictionary<string, int>();
 
     private void Update()
     {
-        ChangeGunShootState();
-        ChangeWeaponCameraPos();
-        Fire();
+        DetectWeapon();
+        PickUpWeapon();
     }
 
-    private void ChangeWeaponCameraPos()
+    private void PickUpWeapon()
     {
-        if (Input.GetMouseButtonDown(1))
+        bool b = couldPickUp && Input.GetKeyDown(KeyCode.F);
+        if (b)
         {
-            StopCoroutine("ChangeWeaponCameraToDefaultPos");
-            StartCoroutine("ChangeWeaponCameraToAimPos");
-        }
-        else if (Input.GetMouseButtonUp(1))
-        {
-            StopCoroutine("ChangeWeaponCameraToAimPos");
-            StartCoroutine("ChangeWeaponCameraToDefaultPos");
-        }
-    }
-
-    private IEnumerator ChangeWeaponCameraToAimPos()
-    {
-        while (weaponCamera.transform.localPosition != AimWeaponCameraPos)
-        {
-            weaponCamera.transform.localPosition = Vector3.Lerp(weaponCamera.transform.localPosition, AimWeaponCameraPos, 0.1f);
-            weaponCamera.fieldOfView = Mathf.Lerp(weaponCamera.fieldOfView, 30, 0.1f);
-            mainCamera.fieldOfView = Mathf.Lerp(weaponCamera.fieldOfView, 30, 0.1f);
-            yield return null;
-        }
-    }
-    private IEnumerator ChangeWeaponCameraToDefaultPos()
-    {
-        while (weaponCamera.transform.localPosition != DefaultWeaponCameraPos)
-        {
-            weaponCamera.transform.localPosition = Vector3.Lerp(weaponCamera.transform.localPosition, DefaultWeaponCameraPos, 0.1f);
-            weaponCamera.fieldOfView = Mathf.Lerp(weaponCamera.fieldOfView, 60, 0.1f);
-            mainCamera.fieldOfView = Mathf.Lerp(weaponCamera.fieldOfView, 60, 0.1f);
-            yield return null;
+            //
+            couldPickUp = false;
+            OnDropWeapon.Invoke();
+            ChangeLayer(weaponObj, "Weapon");
+            weaponObj.GetComponent<WeaponAbstract>().enabled = true;
+            weaponObj.GetComponent<ParentConstraint>().constraintActive = true;
+            weaponObj.GetComponent<AudioSource>().enabled = true;
+            weaponObj.GetComponent<Collider>().enabled = false;
+            weaponObj.GetComponent<WeaponAbstract>().BulletLeft = WeaponBulletLeft[weaponObj.name];
+            weaponObj.transform.SetParent(WeaponParentTransform);
+            weaponObj.transform.localPosition = Vector3.zero;
+            weaponObj.transform.localRotation = Quaternion.identity;
         }
     }
 
-    /// <summary>
-    /// Toggle枪的射击模式 手动 or 自动
-    /// </summary>
-    private void ChangeGunShootState()
+    private void ChangeLayer(GameObject go, string layerName)
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        go.layer = WEAPON_LAYER;
+        foreach (Transform child in go.transform.GetComponentsInChildren<Transform>())
         {
-            IsAuto = !IsAuto;
-        }
-        // TODO UI提示
-    }
-
-    /// <summary>
-    /// 读取鼠标输入
-    /// </summary>
-    private void Fire()
-    {
-        // 单击
-        if (Input.GetMouseButtonDown(0))
-        {
-            onFire = true;
-            OpenFire();
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            // 长按
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            onFire = false;
-            StopCoroutine("AutoFire");
+            child.gameObject.layer = LayerMask.NameToLayer(layerName);
         }
     }
 
-    private void OpenFire()
+    private void DetectWeapon()
     {
-        if (!IsAuto)
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 2.5f, PickUpLayer))
         {
-            ProcessFire();
+            couldPickUp = true;
+            weaponObj = hit.collider.gameObject;
+            OnDetectWeapon.Invoke(true);
         }
         else
         {
-            StartCoroutine("AutoFire");
+            couldPickUp = false;
+            OnDetectWeapon.Invoke(false);
         }
-    }
-    private IEnumerator AutoFire()
-    {
-        while (IsAuto && onFire)
-        {
-            ProcessFire();
-            yield return new WaitForSeconds(PerBulletInterval);
-        }
-    }
-
-    private void ProcessFire()
-    {
-        GameObject bullet = Instantiate(BulletPrefab, BulletStartPoint.position, BulletStartPoint.rotation);
-        bullet.transform.Rotate(0, 180, 0);
-        PlayShootAudio();
-        bullet.GetComponent<Rigidbody>().AddForce(BulletStartPoint.forward * BulletStartVelocity, ForceMode.Impulse);
-        bullet.GetComponent<Bullet>().BulletState = BulletState.PLAYER_BULLET;
-        StopCoroutine("WeaponBack");
-        StartCoroutine("WeaponBack");
-        Destroy(bullet, 4f);
-    }
-
-    private IEnumerator WeaponBack()
-    {
-        if (DefaultPoint != null || BackPoint != null)
-        {
-            while (onFire && transform.localPosition != BackPoint.localPosition)
-            {
-                transform.localPosition = Vector3.Slerp(transform.localPosition, BackPoint.localPosition, WeaponBackRatio);
-
-                yield return null;
-            }
-
-            while (transform.localPosition != DefaultPoint.localPosition)
-            {
-                transform.localPosition = Vector3.Slerp(transform.localPosition, DefaultPoint.localPosition, WeaponBackRatio);
-                yield return null;
-            }
-        }
-        else
-        {
-            Debug.LogError("GunFire:92 DefaultPoint Or BackPoint Is Null");
-        }
-    }
-
-    private void PlayShootAudio() => audioSource?.Play();
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(BulletStartPoint.position, BulletStartPoint.forward * 100);
     }
 }

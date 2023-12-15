@@ -1,11 +1,16 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// FIXME 切枪后不能装弹
+/// </summary>
 public abstract class WeaponAbstract : MonoBehaviour
-{
+{ 
     public float PerBulletInterval;
-    public bool IsAuto;
+
+    public float WeaponBackRatio = 0.3f;
     public int BulletCapacity;
     public GameObject BulletPrefab;
     public float BulletStartVelocity;
@@ -13,6 +18,9 @@ public abstract class WeaponAbstract : MonoBehaviour
     public Transform BulletStartPoint;
     public Transform DefaultPoint;
     public Transform BackPoint;
+    public Transform[] BulletContainers;
+    public int BulletLeft;
+    public float BulletContainerRatio;
 
     public Vector3 DefaultWeaponCameraPos;
     public Vector3 AimWeaponCameraPos;
@@ -20,7 +28,63 @@ public abstract class WeaponAbstract : MonoBehaviour
     protected Camera weaponCamera;
     protected Camera mainCamera;
 
+    protected bool reloadComplete;
+    protected Vector3[] bulletContainersOriginPosition;
+    protected bool reloadInvoke;
+    protected float bulletContainerOutDistance;
+    private Transform playerTransform;
+
     public event Action<int, int> OnBulletLeftChanged;
+
+    private void Awake()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponControl>().WeaponBulletLeft.Add(gameObject.name, BulletLeft);
+    }
+
+    protected virtual void OnEnable()
+    {
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        weaponCamera = GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponControl>().OnDropWeapon += WeaponAbstract_OnDropWeapon;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        bulletContainersOriginPosition = BulletContainers.Select(item => item.localPosition).ToArray();
+    }
+
+    protected virtual void Start()
+    {
+        OnBulletLeftChanged.Invoke(BulletCapacity, BulletLeft);
+    }
+
+    /// <summary>
+    /// FIXME 该事件处理器被错误调用两次
+    /// </summary>
+    private void WeaponAbstract_OnDropWeapon()
+    {
+        // TODO 存储剩余子弹数，等待下次回来时恢复
+        GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponControl>().WeaponBulletLeft[gameObject.name] = BulletLeft;
+        //transform.SetParent(GameObject.FindGameObjectWithTag("Ground").transform);
+        transform.SetParent(null);
+        GetComponent<WeaponAbstract>().enabled = false;
+        GetComponent<Collider>().enabled = true;
+        ChangeLayer(gameObject, "UnPickUpWeapon");
+        transform.position = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+        GetComponent<AudioSource>().enabled = false;
+    }
+
+    private void OnDisable()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponControl>().OnDropWeapon -= WeaponAbstract_OnDropWeapon;
+    }
+
+    private void ChangeLayer(GameObject go, string layerName)
+    {
+        go.layer = LayerMask.NameToLayer(layerName);
+        foreach (Transform child in go.transform.GetComponentsInChildren<Transform>())
+        {
+            child.gameObject.layer = LayerMask.NameToLayer(layerName);
+        }
+    }
+
 
     protected virtual void Update()
     {
@@ -28,13 +92,43 @@ public abstract class WeaponAbstract : MonoBehaviour
         Fire();
     }
 
-    private void Start()
+    protected IEnumerator Reload()
     {
-        weaponCamera = GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>();
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        reloadInvoke = true;
+        reloadComplete = false;
+        for (int i = 0; i < BulletContainers.Length; i++)
+        {
+            while (BulletContainers[i].localPosition != bulletContainersOriginPosition[i])
+            {
+                BulletContainers[i].localPosition = Vector3.Lerp(BulletContainers[i].localPosition, bulletContainersOriginPosition[i], 0.05f);
+                yield return null;
+            }
+        }
+        BulletLeft = BulletCapacity;
+        OnBulletLeftChange(BulletCapacity, BulletLeft);
+        reloadComplete = true;
+        reloadInvoke = false;
     }
 
     protected abstract IEnumerator WeaponBack();
+    protected void ProcessFire()
+    {
+        if (BulletLeft > 0)
+        {
+            GameObject bullet = Instantiate(BulletPrefab, BulletStartPoint.position, BulletStartPoint.rotation);
+            bullet.transform.Rotate(0, 180, 0);
+            PlayShootAudio();
+            bullet.GetComponent<Rigidbody>().AddForce(BulletStartPoint.forward * BulletStartVelocity, ForceMode.Impulse);
+            bullet.GetComponent<Bullet>().BulletState = BulletState.PLAYER_BULLET;
+            BulletLeft--;
+            OnBulletLeftChange(BulletCapacity, BulletLeft);
+            StartCoroutine(WeaponBack());
+            StartCoroutine("BulletContainerAnim", (BulletCapacity - BulletLeft - 1) / (BulletCapacity / BulletContainers.Length));
+            Destroy(bullet, 4f);
+        }
+    }
+    protected abstract void BulletContainerAnim(int index);
+
 
     protected void OnBulletLeftChange(int capacity, int left)
     {
@@ -58,6 +152,7 @@ public abstract class WeaponAbstract : MonoBehaviour
         }
     }
 
+  
     private IEnumerator ChangeWeaponCameraToAimPos()
     {
         while (weaponCamera.transform.localPosition != AimWeaponCameraPos)
@@ -87,5 +182,4 @@ public abstract class WeaponAbstract : MonoBehaviour
     protected abstract void OpenFire();
     protected abstract void PlayShootAudio();
 
-    
 }

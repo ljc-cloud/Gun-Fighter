@@ -11,6 +11,7 @@ TagManager:
   - Patrol
   - Enemy
   - Bullet
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Ground
   - Bullet
   - Enemy
-  - 
+  - UnPickUpWeapon
   - 
   - 
   - 

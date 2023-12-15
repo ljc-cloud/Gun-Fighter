@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum Enemy_HoverBotState { GUARD, PATROL, CHASE, DEAD }
+public enum Enemy_HoverBotState { GUARD, PATROL, CHASE }
 
 /// <summary>
 /// HoverBot ¿ØÖÆÆ÷ ¶¯»­¡¢NavMesh
@@ -89,7 +89,6 @@ public class Enemy_HoverBotController : MonoBehaviour
     private void TimerTick()
     {
         attackTimer += Time.deltaTime;
-
     }
 
     /// <summary>
@@ -153,8 +152,6 @@ public class Enemy_HoverBotController : MonoBehaviour
                     }
                 }
                 break;
-            case Enemy_HoverBotState.DEAD:
-                break;
         }
     }
 
@@ -214,7 +211,6 @@ public class Enemy_HoverBotController : MonoBehaviour
             var collider = colliders[0];
             if (!alerted && collider.CompareTag("Player"))
             {
-                Debug.Log("Detect Player");
                 alerted = true;
                 PlayerTransform = colliders[0].transform;
             }

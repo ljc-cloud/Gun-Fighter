@@ -4,7 +4,7 @@ public enum BulletState { ENEMY_BULLET, PLAYER_BULLET }
 
 public class Bullet : MonoBehaviour
 {
-    public float damage;
+    public float Damage;
     public BulletState BulletState;
     public GameObject BulletExplosion;
 
@@ -15,13 +15,13 @@ public class Bullet : MonoBehaviour
             case "Player":
                 if (BulletState == BulletState.ENEMY_BULLET)
                 {
-                    collision.gameObject.GetComponent<Health>().TakeDamage(damage);
+                    collision.gameObject.GetComponent<Health>().TakeDamage(Damage);
                 }
                 break;
             case "Enemy":
                 if (BulletState == BulletState.PLAYER_BULLET)
                 {
-                    collision.gameObject.GetComponent<Health>().TakeDamage(damage);
+                    collision.gameObject.GetComponent<Health>().TakeDamage(Damage);
                     collision.gameObject.GetComponent<Enemy_HoverBotAnimatorController>().TriggerOnDamaged();
                     Enemy_HoverBotController enemy_HoverBotController = collision.gameObject.GetComponent<Enemy_HoverBotController>();
                     enemy_HoverBotController.HasAttacked = true;
@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Debug");
+
                 }
                 break;
             default:

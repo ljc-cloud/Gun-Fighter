@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6687582193589578344}
   - component: {fileID: 6687582193603410776}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TurretTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6687582193589578348}
   - component: {fileID: 6687582193603410782}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TurretCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6687582193589578350}
   - component: {fileID: 6687582193599153564}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ Animator:
   m_GameObject: {fileID: 6687582193589810766}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fad35a70731ab804c975c717ee8862a5, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d57ebae9f701b57448648b380d0beb65, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -240,7 +240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6687582193589578352}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret_Root_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6687582193589578354}
   - component: {fileID: 6687582193603410780}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TurretBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6687582193589578356}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret_Pivot_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6687582193589810772}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.13041447, z: -0, w: 0.9914596}
   m_LocalPosition: {x: -0, y: 0.0303932, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -380,7 +380,7 @@ Transform:
   - {fileID: 6687582193589578362}
   m_Father: {fileID: 6687582193589578358}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -14.987, z: 0}
 --- !u!1 &6687582193589810774
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +390,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6687582193589578358}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret_Pole_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,8 +404,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6687582193589810774}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.1964895, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1964895, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6687582193589578356}
@@ -421,7 +421,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6687582193589578360}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret_FKRoot_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6687582193589578362}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret_Head_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6687582193589578364}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Handle_R_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +513,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6687582193589578366}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: IrisBlade_C_Jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}

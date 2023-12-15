@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -27,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     public float MaxSlopeAngle = 30f;
     [Range(1, 10)]
     public float GravityWhenFallParam = 2f;
+
+    public event Action<bool> OnMoveStateChanged;
 
     private Vector3 moveDir;
     //private bool isWalk;
@@ -68,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
             Speed = WalkSpeed;
             isRun = false;
         }
+        OnMoveStateChanged.Invoke(isRun);
         GetMoveAxis();
         if (moveDir != Vector3.zero)
         {

@@ -13,17 +13,21 @@ public class Health : MonoBehaviour
 
     public event Action<float, float, float> OnDamaged;
 
+    private void Update()
+    {
+        if (PH <= 0)
+        {
+            CreateBotExplosion();
+            Destroy(gameObject);
+        }
+    }
+
     public void TakeDamage(float damage)
     {
         if (PH > 0)
         {
             PH = Mathf.Max(PH - damage, 0);
             OnDamaged.Invoke(MaxPH, PH, damage);
-        }
-        else
-        {
-            CreateBotExplosion();
-            Destroy(gameObject);
         }
     }
 
