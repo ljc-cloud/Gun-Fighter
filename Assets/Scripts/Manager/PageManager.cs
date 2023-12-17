@@ -6,10 +6,10 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PageManage : MonoBehaviour
+public class PageManager : MonoBehaviour
 {
 
-    public static PageManage Instance;
+    public static PageManager Instance;
 
     private Stack<Canvas> stack = new Stack<Canvas>();
 

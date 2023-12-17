@@ -170,7 +170,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1335
+    m_Bits: 3383
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 8373473855723806201}
   - component: {fileID: 5698879292340928367}
   - component: {fileID: 5698879292340928360}
+  - component: {fileID: 410088599}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -362,8 +363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6aecdf20cc7b843b16a2487308b47c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PH: 100
-  MaxPH: 100
+  PH: 500
+  MaxPH: 500
   BotExplosion: {fileID: 8717343201587977242, guid: 7007cb1a2a589784da06303268814510, type: 3}
 --- !u!136 &5698879292340928360
 CapsuleCollider:
@@ -379,6 +380,22 @@ CapsuleCollider:
   m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 0.65, z: 0}
+--- !u!114 &410088599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5698879292340928361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29599a4b3c0a64a418c9c640f7d03e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PickUpLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  WeaponParentTransform: {fileID: 7027183974210190739}
 --- !u!1001 &5178417191171529022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -552,6 +569,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7027183974210190739}
     m_Modifications:
+    - target: {fileID: 2036978629582156885, guid: a7084fef1118a634885d21dfaba1037d, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3006102180001999241, guid: a7084fef1118a634885d21dfaba1037d, type: 3}
       propertyPath: m_Name
       value: Weapon1_Mesh
@@ -644,9 +665,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon01
       objectReference: {fileID: 0}
+    - target: {fileID: 8959087234070225278, guid: a7084fef1118a634885d21dfaba1037d, type: 3}
+      propertyPath: m_TagString
+      value: Weapon
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3821181351214791623, guid: a7084fef1118a634885d21dfaba1037d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a7084fef1118a634885d21dfaba1037d, type: 3}
+--- !u!1 &67026570504151544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8959087234070225278, guid: a7084fef1118a634885d21dfaba1037d, type: 3}
+  m_PrefabInstance: {fileID: 8987832529123246214}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2790532710263834990 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6485962638637779432, guid: a7084fef1118a634885d21dfaba1037d, type: 3}
@@ -672,3 +702,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8786232392752235863, guid: a7084fef1118a634885d21dfaba1037d, type: 3}
   m_PrefabInstance: {fileID: 8987832529123246214}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &363096339
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67026570504151544}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.55935585, y: 0.7390667, z: 1}
+  m_Center: {x: 0.0042288937, y: 0.14852889, z: -6.642936e-12}
+--- !u!1773428102 &363096340
+ParentConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67026570504151544}
+  m_Enabled: 1
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_TranslationOffsets: []
+  m_RotationOffsets: []
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_IsContraintActive: 0
+  m_IsLocked: 1
+  m_Sources: []

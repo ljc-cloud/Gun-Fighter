@@ -69,7 +69,7 @@ public class WeaponControl : MonoBehaviour
         else
         {
             couldPickUp = false;
-            OnDetectWeapon.Invoke(false);
+            OnDetectWeapon?.Invoke(false);
         }
     }
 }

@@ -42,6 +42,10 @@ public class PlayerMovement : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
     }
+    private void Start()
+    {
+        GameManager.Instance.PlayerTransform = transform;
+    }
 
     private void Update()
     {
@@ -71,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
             Speed = WalkSpeed;
             isRun = false;
         }
-        OnMoveStateChanged.Invoke(isRun);
+        OnMoveStateChanged?.Invoke(isRun);
         GetMoveAxis();
         if (moveDir != Vector3.zero)
         {
@@ -213,6 +217,15 @@ public class PlayerMovement : MonoBehaviour
         }
         hitNormal = Vector3.zero;
         return false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("HealthPickUp"))
+        {
+            GetComponent<Health>().PH += other.transform.GetComponent<HealthPickUp>().HealthValue;
+            Destroy(other.gameObject);
+        }
     }
 
     private void OnDrawGizmosSelected()

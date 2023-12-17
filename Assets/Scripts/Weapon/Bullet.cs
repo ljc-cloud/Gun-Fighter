@@ -21,15 +21,18 @@ public class Bullet : MonoBehaviour
             case "Enemy":
                 if (BulletState == BulletState.PLAYER_BULLET)
                 {
-                    collision.gameObject.GetComponent<Health>().TakeDamage(Damage);
-                    collision.gameObject.GetComponent<Enemy_HoverBotAnimatorController>().TriggerOnDamaged();
-                    Enemy_HoverBotController enemy_HoverBotController = collision.gameObject.GetComponent<Enemy_HoverBotController>();
-                    enemy_HoverBotController.HasAttacked = true;
-                    enemy_HoverBotController.ExitAlertTimer = 0;
-                }
-                else
-                {
-
+                    if (collision.transform.TryGetComponent(out Enemy_HoverBotController hoverBotController))
+                    {
+                        collision.gameObject.GetComponent<Health>().TakeDamage(Damage);
+                        collision.gameObject.GetComponent<Enemy_HoverBotAnimatorController>().TriggerOnDamaged();
+                        hoverBotController.HasAttacked = true;
+                        hoverBotController.ExitAlertTimer = 0;
+                    }
+                    else if (collision.transform.TryGetComponent(out Enemy_TurrentController turrentController))
+                    {
+                        collision.gameObject.GetComponent<Health>().TakeDamage(Damage);
+                        turrentController.TriggerOnDamaged();
+                    }
                 }
                 break;
             default:

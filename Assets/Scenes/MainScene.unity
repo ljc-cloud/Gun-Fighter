@@ -1878,7 +1878,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518777493}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PageManage, Assembly-CSharp
         m_MethodName: RegisterClicked
         m_Mode: 1
@@ -4281,7 +4281,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518777493}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PageManage, Assembly-CSharp
         m_MethodName: LoginClicked
         m_Mode: 1
@@ -4764,7 +4764,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518777493}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PageManage, Assembly-CSharp
         m_MethodName: PlayClicked
         m_Mode: 1
@@ -5165,7 +5165,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518777493}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PageManage, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1

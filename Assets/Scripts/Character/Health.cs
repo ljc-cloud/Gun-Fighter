@@ -13,10 +13,21 @@ public class Health : MonoBehaviour
 
     public event Action<float, float, float> OnDamaged;
 
+    public event Action OnPlayerDie;
+    public event Action OnEnemyDie;
+
     private void Update()
     {
         if (PH <= 0)
         {
+            if (gameObject.CompareTag("Player"))
+            {
+                OnPlayerDie.Invoke();
+            }
+            else if (gameObject.CompareTag("Enemy"))
+            {
+                OnEnemyDie.Invoke();
+            }
             CreateBotExplosion();
             Destroy(gameObject);
         }
@@ -27,7 +38,7 @@ public class Health : MonoBehaviour
         if (PH > 0)
         {
             PH = Mathf.Max(PH - damage, 0);
-            OnDamaged.Invoke(MaxPH, PH, damage);
+            OnDamaged?.Invoke(MaxPH, PH, damage);
         }
     }
 

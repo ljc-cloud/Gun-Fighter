@@ -29,7 +29,10 @@ public class EnemyUIHandler : MonoBehaviour
     /// </summary>
     private void LateUpdate()
     {
-        Vector3 lookPoint = Vector3.ProjectOnPlane(gameObject.transform.position - Camera.main.transform.position, Camera.main.transform.forward);
-        gameObject.transform.LookAt(lookPoint + Camera.main.transform.position);
+        if (Camera.main)
+        {
+            Vector3 lookPoint = Vector3.ProjectOnPlane(gameObject.transform.position - Camera.main.transform.position, Camera.main.transform.forward);
+            gameObject.transform.LookAt(lookPoint + Camera.main.transform.position);
+        }
     }
 }

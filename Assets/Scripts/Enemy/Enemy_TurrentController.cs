@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public enum Enemy_TurrentState { IDLE, ACTIVE }
 
-public class Enemy_TurrentController : MonoBehaviour
+public class Enemy_TurrentController : EnemyController
 {
     // Components
     private Enemy_TurrentAnimatorController animatorController;
+    private BoxCollider boxCollider;
 
     // Animation
     private bool isActive;
@@ -18,6 +20,7 @@ public class Enemy_TurrentController : MonoBehaviour
     public float bulletStartVelocity = 10f;
 
     private Transform PlayerTransform;
+    private Vector3 originBoxColliderCenter;
 
     private float attackTimer;
     public float ExitAlertTimer;
@@ -31,6 +34,13 @@ public class Enemy_TurrentController : MonoBehaviour
     private void Awake()
     {
         animatorController = GetComponent<Enemy_TurrentAnimatorController>();
+        boxCollider = GetComponent<BoxCollider>();
+
+    }
+
+    private void OnEnable()
+    {
+        originBoxColliderCenter = boxCollider.center;
     }
 
     private void Update()
@@ -76,14 +86,14 @@ public class Enemy_TurrentController : MonoBehaviour
         switch (enemyState)
         {
             case Enemy_TurrentState.IDLE:
-                
+
                 break;
             case Enemy_TurrentState.ACTIVE:
                 if (attackTimer > 1f)
                 {
                     StartCoroutine("Attack");
                     attackTimer = 0;
-                }            
+                }
                 break;
         }
     }
@@ -133,11 +143,14 @@ public class Enemy_TurrentController : MonoBehaviour
             {
                 isActive = true;
                 PlayerTransform = colliders[0].transform;
+                boxCollider.center = new Vector3(boxCollider.center.x, originBoxColliderCenter.y + 0.5f, boxCollider.center.z);
+
             }
         }
         else
         {
             isActive = false;
+            boxCollider.center = originBoxColliderCenter;
         }
     }
 
@@ -146,4 +159,6 @@ public class Enemy_TurrentController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, AlertRadius);
     }
+
+    public void TriggerOnDamaged() => animatorController.TriggerOnDamaged();
 }

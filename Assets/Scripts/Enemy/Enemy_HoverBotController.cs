@@ -7,10 +7,9 @@ public enum Enemy_HoverBotState { GUARD, PATROL, CHASE }
 
 /// <summary>
 /// HoverBot 控制器 动画、NavMesh
-/// 被玩家攻击时，自动切换状态 Alerted,并锁定玩家位置
 /// TODO 开火特效，玩家打败可能产生血包
 /// </summary>
-public class Enemy_HoverBotController : MonoBehaviour
+public class Enemy_HoverBotController : EnemyController
 {
     // Components
     private NavMeshAgent agent;
@@ -139,7 +138,10 @@ public class Enemy_HoverBotController : MonoBehaviour
                 if (!InAttackRange())
                 {
                     agent.isStopped = false;
-                    agent.destination = PlayerTransform.position;
+                    if (PlayerTransform)
+                    {
+                        agent.destination = PlayerTransform.position;
+                    }
                 }
                 else
                 {
@@ -232,7 +234,7 @@ public class Enemy_HoverBotController : MonoBehaviour
         {
             ExitAlertTimer += Time.deltaTime;
             alerted = true;
-            PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            PlayerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
         else if (!alerted)
         {
@@ -247,7 +249,7 @@ public class Enemy_HoverBotController : MonoBehaviour
                 HasAttacked = false;
                 alerted = false;
             }
-          
+
         }
     }
 
