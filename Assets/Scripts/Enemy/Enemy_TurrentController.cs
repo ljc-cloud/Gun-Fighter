@@ -121,10 +121,12 @@ public class Enemy_TurrentController : EnemyController
             yield return null;
 
         }
-        var dir = (PlayerTransform.position - transform.position).normalized;
+        var bulletDir = (PlayerTransform.position - BulletStartPoint.position).normalized;
+        bulletDir.y += 0.1f;
+        BulletStartPoint.forward = bulletDir;
         GameObject bullet = Instantiate(EnemyBulletPrefab, BulletStartPoint.position, Quaternion.identity);
         bullet.GetComponent<Bullet>().BulletState = BulletState.ENEMY_BULLET;
-        bullet.GetComponent<Rigidbody>().AddForce(dir * bulletStartVelocity, ForceMode.Impulse);
+        bullet.GetComponent<Rigidbody>().AddForce(bulletDir * bulletStartVelocity, ForceMode.Impulse);
         animatorController.TriggerAttack();
         Destroy(bullet, 4f);
     }

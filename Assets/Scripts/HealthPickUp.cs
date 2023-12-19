@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -10,4 +8,9 @@ public class HealthPickUp : MonoBehaviour
 {
     public float HealthValue;
 
+
+    private void Update()
+    {
+        transform.Rotate(Vector3.up * 60 * Time.deltaTime);
+    }
 }

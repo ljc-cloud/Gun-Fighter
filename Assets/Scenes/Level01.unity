@@ -2640,7 +2640,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!114 &578933558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3875,7 +3875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &725237481
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4146,7 +4146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e5389783dabd44fb6109cd647582ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HealthPickUpPre: {fileID: 8675778655100260160, guid: 76b20f6c3f9f27f429065774a9791c59, type: 3}
   CurrentLevel: Level01
+  NextLevel: Level02
   enemyCount: 0
   enemyLeft: 0
 --- !u!1 &805387186
@@ -7711,7 +7713,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1669925586}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 213373323}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: PlayNextLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1669925586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9436,7 +9450,7 @@ GameObject:
   - component: {fileID: 2001866753}
   m_Layer: 0
   m_Name: Patrol Parent
-  m_TagString: Patrol
+  m_TagString: Patrol1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10098,6 +10112,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5698879292340928367, guid: c9c6914b987e1da45ad32ce44bd2d80f, type: 3}
+      propertyPath: PH
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9c6914b987e1da45ad32ce44bd2d80f, type: 3}
 --- !u!1001 &7006647077731467749
@@ -10237,14 +10255,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8132524558706484923, guid: 8657f815a85d885468dc27bdd1ae9cec, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8132524558706484923, guid: 8657f815a85d885468dc27bdd1ae9cec, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.000000059605
-      objectReference: {fileID: 0}
     - target: {fileID: 8132524559466244473, guid: 8657f815a85d885468dc27bdd1ae9cec, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -10289,6 +10299,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8132524559466244475, guid: 8657f815a85d885468dc27bdd1ae9cec, type: 3}
+      propertyPath: PatrolTagName
+      value: Patrol1
+      objectReference: {fileID: 0}
     - target: {fileID: 8132524559466244476, guid: 8657f815a85d885468dc27bdd1ae9cec, type: 3}
       propertyPath: m_Name
       value: Enemy_HoverBot
@@ -10297,22 +10311,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 4439856150089536248}
-    - target: {fileID: 8132524560291723023, guid: 8657f815a85d885468dc27bdd1ae9cec, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8132524560291723023, guid: 8657f815a85d885468dc27bdd1ae9cec, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 1.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8132524560291723023, guid: 8657f815a85d885468dc27bdd1ae9cec, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 8132524560291723023, guid: 8657f815a85d885468dc27bdd1ae9cec, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 1.42
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8657f815a85d885468dc27bdd1ae9cec, type: 3}
 --- !u!1001 &8675778654159783362

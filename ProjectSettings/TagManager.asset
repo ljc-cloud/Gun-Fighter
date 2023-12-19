@@ -8,11 +8,12 @@ TagManager:
   - Target
   - WeaponCamera
   - Ladder
-  - Patrol
   - Enemy
   - Bullet
   - Weapon
   - HealthPickUp
+  - Patrol1
+  - Patrol2
   layers:
   - Default
   - TransparentFX

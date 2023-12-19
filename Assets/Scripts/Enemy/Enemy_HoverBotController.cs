@@ -7,7 +7,7 @@ public enum Enemy_HoverBotState { GUARD, PATROL, CHASE }
 
 /// <summary>
 /// HoverBot 控制器 动画、NavMesh
-/// TODO 开火特效，玩家打败可能产生血包
+/// TODO 开火特效
 /// </summary>
 public class Enemy_HoverBotController : EnemyController
 {
@@ -23,6 +23,7 @@ public class Enemy_HoverBotController : EnemyController
 
     // enemyState
     public Enemy_HoverBotState enemyState;
+    public bool IsGuard;
 
     // Prefab
     [Header("Bullet")]
@@ -32,6 +33,7 @@ public class Enemy_HoverBotController : EnemyController
     [Tooltip("Bullet Start Velocity")]
     public float bulletStartVelocity = 10f;
 
+    public string PatrolTagName;
     [SerializeField]
     private Transform[] PatrolPoints;
     private int patrolIndex;
@@ -46,7 +48,6 @@ public class Enemy_HoverBotController : EnemyController
     public float ExitAlertTimer;
 
     [Header("Enemy State")]
-    public bool IsGuard;
     public float AlertRadius = 7f;
     public float AttackRadius = 4f;
     public float ChaseSpeedRatio = 1.5f;
@@ -65,8 +66,8 @@ public class Enemy_HoverBotController : EnemyController
 
     private void Start()
     {
-        Transform patrolParentTrans = GameObject.FindGameObjectWithTag("Patrol").transform;
-        PatrolPoints = GameObject.FindGameObjectWithTag("Patrol").GetComponentsInChildren<Transform>();
+        Transform patrolParentTrans = GameObject.FindGameObjectWithTag(PatrolTagName).transform;
+        PatrolPoints = GameObject.FindGameObjectWithTag(PatrolTagName).GetComponentsInChildren<Transform>();
         PatrolPoints = PatrolPoints.Where(item => !item.Equals(patrolParentTrans)).ToArray();
         originPatrolPoint = PatrolPoints[0].position;
         originSpeed = agent.speed;
@@ -80,6 +81,7 @@ public class Enemy_HoverBotController : EnemyController
         DetectHasAttacked();
         SetEnemyState();
         TimerTick();
+        Debug.DrawRay(BulletStartPoint.position, BulletStartPoint.forward * 10);
     }
 
     /// <summary>
@@ -173,18 +175,20 @@ public class Enemy_HoverBotController : EnemyController
             var lookDir = (PlayerTransform.position - transform.position).normalized;
             var tarRotation = Quaternion.LookRotation(lookDir);
             transform.rotation = Quaternion.Slerp(transform.rotation, tarRotation, 0.1f);
-
-            if (Vector3.Angle(transform.forward, lookDir) < 15f || !alerted)
+           
+            if ((Vector3.Angle(transform.forward, lookDir) < 12f) || !alerted)
             {
                 break;
             }
             yield return null;
 
         }
-        var dir = (PlayerTransform.position - transform.position).normalized;
+        var bulletDir = (PlayerTransform.position - BulletStartPoint.position).normalized;
+        bulletDir.y += 0.1f;
+        BulletStartPoint.forward = bulletDir;
         GameObject bullet = Instantiate(EnemyBulletPrefab, BulletStartPoint.position, Quaternion.identity);
         bullet.GetComponent<Bullet>().BulletState = BulletState.ENEMY_BULLET;
-        bullet.GetComponent<Rigidbody>().AddForce(dir * bulletStartVelocity, ForceMode.Impulse);
+        bullet.GetComponent<Rigidbody>().AddForce(bulletDir * bulletStartVelocity, ForceMode.Impulse);
         animatorController.TriggerAttack();
         Destroy(bullet, 4f);
     }
@@ -211,10 +215,21 @@ public class Enemy_HoverBotController : EnemyController
         if (colliders != null && colliders.Length > 0)
         {
             var collider = colliders[0];
-            if (!alerted && collider.CompareTag("Player"))
+            if (collider.CompareTag("Player"))
             {
-                alerted = true;
-                PlayerTransform = colliders[0].transform;
+                Ray ray = new Ray(transform.position, collider.transform.position - transform.position);
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    if (hit.transform.CompareTag("Player"))
+                    {
+                        alerted = true;
+                        PlayerTransform = collider.transform;
+                    }
+                    else
+                    {
+                        alerted = false;
+                    }
+                }
             }
         }
         else if (!HasAttacked || ExitAlertTimer >= ExitAlertTime)

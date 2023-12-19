@@ -14,7 +14,7 @@ public class Health : MonoBehaviour
     public event Action<float, float, float> OnDamaged;
 
     public event Action OnPlayerDie;
-    public event Action OnEnemyDie;
+    public event Action<Transform> OnEnemyDie;
 
     private void Update()
     {
@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
             }
             else if (gameObject.CompareTag("Enemy"))
             {
-                OnEnemyDie.Invoke();
+                OnEnemyDie.Invoke(transform);
             }
             CreateBotExplosion();
             Destroy(gameObject);

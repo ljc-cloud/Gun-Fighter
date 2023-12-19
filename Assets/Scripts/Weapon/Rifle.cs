@@ -122,7 +122,6 @@ public class Rifle : WeaponAbstract
 
     protected override void BulletContainerAnim(int index)
     {
-        Debug.Log($"Diantance = {bulletContainerOutDistance}");
         BulletContainers[index].Translate(0, bulletContainerOutDistance, 0, Space.Self);
     }
     //private void ProcessFire()

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         if (Instance != null)
             Destroy(Instance);
         Instance = this;
+        DontDestroyOnLoad(gameObject);
         LosePanel.Hide();
         WinPanel.Hide();
     }
@@ -84,8 +85,16 @@ public class GameManager : MonoBehaviour
 
     public void PlayAgain()
     {
+        Debug.Log("Play Again");
+        //SceneManager.Scene
         string currentLevel = Level.Instance.CurrentLevel;
         SceneManager.LoadScene(currentLevel);
+    }
+
+    public void PlayNextLevel()
+    {
+        string nextLevel = Level.Instance.NextLevel;
+        SceneManager.LoadScene(nextLevel);
     }
 
 }
