@@ -32,7 +32,6 @@ public class WeaponControl : MonoBehaviour
         bool b = couldPickUp && Input.GetKeyDown(KeyCode.F);
         if (b)
         {
-            //
             couldPickUp = false;
             OnDropWeapon.Invoke();
             ChangeLayer(weaponObj, "Weapon");
@@ -64,7 +63,7 @@ public class WeaponControl : MonoBehaviour
         {
             couldPickUp = true;
             weaponObj = hit.collider.gameObject;
-            OnDetectWeapon.Invoke(true);
+            OnDetectWeapon?.Invoke(true);
         }
         else
         {

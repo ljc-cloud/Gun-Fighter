@@ -7,7 +7,7 @@ using UnityEngine;
 /// FIXME 切枪后不能装弹
 /// </summary>
 public abstract class WeaponAbstract : MonoBehaviour
-{ 
+{
     public float PerBulletInterval;
 
     public float WeaponBackRatio = 0.3f;
@@ -56,18 +56,19 @@ public abstract class WeaponAbstract : MonoBehaviour
     }
 
     /// <summary>
-    /// FIXME 该事件处理器被错误调用两次
+    /// 
     /// </summary>
     private void WeaponAbstract_OnDropWeapon()
     {
-        // TODO 存储剩余子弹数，等待下次回来时恢复
+        // 存储剩余子弹数，等待下次回来时恢复
         GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponControl>().WeaponBulletLeft[gameObject.name] = BulletLeft;
         //transform.SetParent(GameObject.FindGameObjectWithTag("Ground").transform);
         transform.SetParent(null);
         GetComponent<WeaponAbstract>().enabled = false;
         GetComponent<Collider>().enabled = true;
         ChangeLayer(gameObject, "UnPickUpWeapon");
-        transform.position = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+        transform.position = new Vector3(playerTransform.position.x, 0.35f, playerTransform.position.z);
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
         GetComponent<AudioSource>().enabled = false;
     }
 
@@ -90,6 +91,15 @@ public abstract class WeaponAbstract : MonoBehaviour
     {
         ChangeWeaponCameraPos();
         Fire();
+        ReloadCheck();
+    }
+
+    private void ReloadCheck()
+    {
+        if (!reloadInvoke && Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(Reload());
+        }
     }
 
     protected IEnumerator Reload()
@@ -152,7 +162,7 @@ public abstract class WeaponAbstract : MonoBehaviour
         }
     }
 
-  
+
     private IEnumerator ChangeWeaponCameraToAimPos()
     {
         while (weaponCamera.transform.localPosition != AimWeaponCameraPos)

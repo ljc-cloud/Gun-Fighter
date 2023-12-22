@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class Register : MonoBehaviour
 {
+    private readonly string url = "http://47.92.94.83:8949/api";
     public TMP_InputField Account;
     public TMP_InputField Pwd;
     public TMP_Text Error;
@@ -25,7 +26,7 @@ public class Register : MonoBehaviour
         form.AddField("userAccount", Account.text);
         form.AddField("userPwd", Pwd.text);
 
-        UnityWebRequest request = UnityWebRequest.Post($"http://localhost:8949/api/register", form);
+        UnityWebRequest request = UnityWebRequest.Post($"{url}/register", form);
         yield return request.SendWebRequest();
         Debug.Log(Encoding.UTF8.GetString(request.downloadHandler.data));
         if (string.IsNullOrEmpty(request.error))
@@ -36,8 +37,10 @@ public class Register : MonoBehaviour
             {
                 User user = response.data;
                 user.timeStamp = DateTime.Now.ToString();
-                Debug.Log(DateTime.Now.ToString());
-                string path = Application.dataPath + "/Data/user.json";
+                string dirPath = Application.persistentDataPath + "/Data";
+                if (!Directory.Exists(dirPath))
+                    Directory.CreateDirectory(dirPath);
+                string path = $"{dirPath}/user.json";
                 FileStream fileStream = File.Create(path);
                 byte[] buffer = Encoding.UTF8.GetBytes(JsonUtility.ToJson(user));
                 fileStream.Write(buffer, 0, buffer.Length);

@@ -12,10 +12,8 @@ public class EnemyUIHandler : MonoBehaviour
 
     private void EnemyUIHandler_OnDamaged(float maxPh, float ph, float damage)
     {
-        Debug.Log($"Enemy Take Damage {damage}");
         if (ph > 0)
         {
-            ph = Mathf.Max(ph - damage, 0);
             PH_Slider.value = (ph / maxPh) * PH_Slider.maxValue;
         }
         else

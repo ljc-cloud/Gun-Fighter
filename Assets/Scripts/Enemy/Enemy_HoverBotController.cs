@@ -66,11 +66,14 @@ public class Enemy_HoverBotController : EnemyController
 
     private void Start()
     {
-        Transform patrolParentTrans = GameObject.FindGameObjectWithTag(PatrolTagName).transform;
-        PatrolPoints = GameObject.FindGameObjectWithTag(PatrolTagName).GetComponentsInChildren<Transform>();
-        PatrolPoints = PatrolPoints.Where(item => !item.Equals(patrolParentTrans)).ToArray();
-        originPatrolPoint = PatrolPoints[0].position;
-        originSpeed = agent.speed;
+        if (!IsGuard && enemyState != Enemy_HoverBotState.GUARD)
+        {
+            Transform patrolParentTrans = GameObject.FindGameObjectWithTag(PatrolTagName).transform;
+            PatrolPoints = GameObject.FindGameObjectWithTag(PatrolTagName).GetComponentsInChildren<Transform>();
+            PatrolPoints = PatrolPoints.Where(item => !item.Equals(patrolParentTrans)).ToArray();
+            originPatrolPoint = PatrolPoints[0].position;
+            originSpeed = agent.speed;
+        }
     }
 
     private void Update()
@@ -281,7 +284,6 @@ public class Enemy_HoverBotController : EnemyController
         agent.destination = PatrolPoints[patrolIndex++].position;
         patrolIndex = patrolIndex % PatrolPoints.Length;
         originPatrolPoint = PatrolPoints[patrolIndex].position;
-
     }
 
     /// <summary>
@@ -309,6 +311,8 @@ public class Enemy_HoverBotController : EnemyController
 
     private void DrawPatrolLine()
     {
+        if (IsGuard)
+            return;
         for (int i = 0; i < PatrolPoints.Length; i++)
         {
             if (i < PatrolPoints.Length - 1)

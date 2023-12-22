@@ -11,10 +11,13 @@ public class GameManager : MonoBehaviour
     public TMP_Text LevelText;
     public Panel LosePanel;
     public Panel WinPanel;
+    public Panel EscPanel;
 
     public Transform PlayerTransform;
 
     private float fadeTimer;
+
+    private bool escShow;
 
     private void Awake()
     {
@@ -22,12 +25,18 @@ public class GameManager : MonoBehaviour
             Destroy(Instance);
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        LosePanel.Hide();
-        WinPanel.Hide();
+        if (SceneManager.GetActiveScene().name != "MainScene")
+        {
+            LosePanel.Hide();
+            WinPanel.Hide();
+        }
+        EscPanel.Hide();
     }
 
     private void Start()
     {
+        if (SceneManager.GetActiveScene().name == "MainScene")
+            return;
         Level.Instance.OnTargetComplete += GameManager_OnTargetComplete;
         PlayerTransform.GetComponent<Health>().OnPlayerDie += GameManager_OnPlayerDie;
     }
@@ -68,6 +77,20 @@ public class GameManager : MonoBehaviour
     {
         TimerTick();
         UIFade();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (escShow)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                EscPanel.Hide();
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                EscPanel.Show();
+            }
+            escShow = !escShow;
+        }
     }
 
     private void TimerTick()
@@ -76,6 +99,8 @@ public class GameManager : MonoBehaviour
     }
     private void UIFade()
     {
+        if (SceneManager.GetActiveScene().name == "MainScene")
+            return;
         if (fadeTimer > 3f)
         {
             LevelTarget.text = "";
@@ -85,7 +110,6 @@ public class GameManager : MonoBehaviour
 
     public void PlayAgain()
     {
-        Debug.Log("Play Again");
         //SceneManager.Scene
         string currentLevel = Level.Instance.CurrentLevel;
         SceneManager.LoadScene(currentLevel);
@@ -97,4 +121,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(nextLevel);
     }
 
+    public void Replay()
+    {
+        SceneManager.LoadScene("Level01");
+    }
+
+    public void QuitGame() => Application.Quit();
 }

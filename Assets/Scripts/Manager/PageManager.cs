@@ -17,8 +17,6 @@ public class PageManager : MonoBehaviour
     public Canvas Login;
     public Canvas Register;
     public Canvas Select;
-
-
     private void Awake()
     {
         if (Instance != null)
@@ -43,7 +41,7 @@ public class PageManager : MonoBehaviour
 
     public void PlayClicked()
     {
-        string path = $"{Application.dataPath}/Data/user.json";
+        string path = $"{Application.persistentDataPath}/Data/user.json";
         if (!File.Exists(path))
         {
             ToSelect();
@@ -56,10 +54,14 @@ public class PageManager : MonoBehaviour
         User user = JsonUtility.FromJson<User>(json);
         DateTime time = DateTime.Parse(user.timeStamp);
         TimeSpan span = DateTime.Now.Subtract(time);
-        if (span.Minutes <= 120)
+        if (span.TotalMinutes <= 120)
         {
             // TODO Load Game Scene
             SceneManager.LoadScene("Level01");
+        }
+        else
+        {
+            ToSelect();
         }
     }
 

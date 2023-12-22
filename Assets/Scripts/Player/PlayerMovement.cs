@@ -12,8 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Move Speed")]
     public float Speed;
-    public float WalkSpeed = 10f;
-    public float RunSpeed = 15f;
+    public float WalkSpeed = 5f;
+    public float RunSpeed = 8f;
 
     [Header("Vertical Velocity")]
     public float GravityForce = -10f;
@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public float GravityWhenFallParam = 2f;
 
     public event Action<bool> OnMoveStateChanged;
+    public event Action<float> OnPickUpHealth;
 
     private Vector3 moveDir;
     //private bool isWalk;
@@ -223,7 +224,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.transform.CompareTag("HealthPickUp"))
         {
-            GetComponent<Health>().PH += other.transform.GetComponent<HealthPickUp>().HealthValue;
+            float healthValue = other.transform.GetComponent<HealthPickUp>().HealthValue;
+            float ph = GetComponent<Health>().PH;
+            if (ph >= GetComponent<Health>().MaxPH)
+                return;
+            GetComponent<Health>().PH = Mathf.Min(ph + healthValue, GetComponent<Health>().MaxPH);
+            OnPickUpHealth.Invoke(healthValue);
             Destroy(other.gameObject);
         }
     }

@@ -34,7 +34,6 @@ public class Level : MonoBehaviour
     {
         enemyLeft--;
         float random = UnityEngine.Random.Range(0f, 1f);
-        Debug.Log($"rnadom => {random}");
         Vector3 pos = trans.position;
         pos.y += 0.5f;
         if (random > 0.5f)

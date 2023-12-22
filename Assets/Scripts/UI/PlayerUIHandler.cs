@@ -29,6 +29,12 @@ public class PlayerUIHandler : MonoBehaviour
         }
         GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponControl>().OnDetectWeapon += PlayerUIHandler_OnDetectWeapon;
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().OnMoveStateChanged += PlayerUIHandler_OnMoveStateChanged;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().OnPickUpHealth += PlayerUIHandler_OnPickUpHealth;
+    }
+
+    private void PlayerUIHandler_OnPickUpHealth(float healVal)
+    {
+        PH_Slider.value = Mathf.Min(PH_Slider.maxValue, PH_Slider.value += healVal);
     }
 
     private void PlayerUIHandler_OnDetectWeapon(bool pick)

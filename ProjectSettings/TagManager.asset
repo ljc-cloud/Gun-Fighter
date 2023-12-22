@@ -14,6 +14,10 @@ TagManager:
   - HealthPickUp
   - Patrol1
   - Patrol2
+  - Patrol3
+  - Patrol4
+  - Patrol5
+  - Patrol6
   layers:
   - Default
   - TransparentFX

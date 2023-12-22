@@ -363,8 +363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6aecdf20cc7b843b16a2487308b47c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PH: 500
-  MaxPH: 500
+  PH: 200
+  MaxPH: 200
   BotExplosion: {fileID: 8717343201587977242, guid: 7007cb1a2a589784da06303268814510, type: 3}
 --- !u!136 &5698879292340928360
 CapsuleCollider:
