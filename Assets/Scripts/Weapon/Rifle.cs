@@ -5,7 +5,6 @@ using UnityEngine;
 /// <summary>
 /// Rifle 
 /// 装弹及动画
-/// FIXME 子弹打完后后坐力不会回来
 /// </summary>
 public class Rifle : WeaponAbstract
 {
@@ -20,11 +19,14 @@ public class Rifle : WeaponAbstract
     protected override void OnEnable()
     {
         base.OnEnable();
+        BulletContainerRatio = 0.5f;
+        BulletLeft = BulletCapacity;
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         BulletContainerRatio = 0.1f;
         PerBulletInterval = 0.1f;
         IsAuto = true;
@@ -89,7 +91,6 @@ public class Rifle : WeaponAbstract
             else
             {
                 StopCoroutine("AutoFire");
-                //StartCoroutine("Reload");
             }
 
         }

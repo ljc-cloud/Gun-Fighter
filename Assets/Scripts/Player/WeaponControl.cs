@@ -27,6 +27,22 @@ public class WeaponControl : MonoBehaviour
         PickUpWeapon();
     }
 
+    private void DetectWeapon()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 2.5f, PickUpLayer))
+        {
+            couldPickUp = true;
+            weaponObj = hit.collider.gameObject;
+            OnDetectWeapon?.Invoke(true);
+        }
+        else
+        {
+            couldPickUp = false;
+            OnDetectWeapon?.Invoke(false);
+        }
+    }
     private void PickUpWeapon()
     {
         bool b = couldPickUp && Input.GetKeyDown(KeyCode.F);
@@ -52,23 +68,6 @@ public class WeaponControl : MonoBehaviour
         foreach (Transform child in go.transform.GetComponentsInChildren<Transform>())
         {
             child.gameObject.layer = LayerMask.NameToLayer(layerName);
-        }
-    }
-
-    private void DetectWeapon()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 2.5f, PickUpLayer))
-        {
-            couldPickUp = true;
-            weaponObj = hit.collider.gameObject;
-            OnDetectWeapon?.Invoke(true);
-        }
-        else
-        {
-            couldPickUp = false;
-            OnDetectWeapon?.Invoke(false);
         }
     }
 }

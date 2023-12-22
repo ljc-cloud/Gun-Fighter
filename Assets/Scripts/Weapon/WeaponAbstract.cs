@@ -39,6 +39,7 @@ public abstract class WeaponAbstract : MonoBehaviour
     private void Awake()
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponControl>().WeaponBulletLeft.Add(gameObject.name, BulletLeft);
+        bulletContainersOriginPosition = BulletContainers.Select(item => item.localPosition).ToArray();
     }
 
     protected virtual void OnEnable()
@@ -47,11 +48,11 @@ public abstract class WeaponAbstract : MonoBehaviour
         weaponCamera = GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>();
         GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponControl>().OnDropWeapon += WeaponAbstract_OnDropWeapon;
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        bulletContainersOriginPosition = BulletContainers.Select(item => item.localPosition).ToArray();
     }
 
     protected virtual void Start()
     {
+        Debug.Log(BulletLeft);
         OnBulletLeftChanged.Invoke(BulletCapacity, BulletLeft);
     }
 
@@ -60,9 +61,10 @@ public abstract class WeaponAbstract : MonoBehaviour
     /// </summary>
     private void WeaponAbstract_OnDropWeapon()
     {
+        StopCoroutine("Reload");
+        reloadInvoke = false;
         // 存储剩余子弹数，等待下次回来时恢复
         GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponControl>().WeaponBulletLeft[gameObject.name] = BulletLeft;
-        //transform.SetParent(GameObject.FindGameObjectWithTag("Ground").transform);
         transform.SetParent(null);
         GetComponent<WeaponAbstract>().enabled = false;
         GetComponent<Collider>().enabled = true;
@@ -137,8 +139,8 @@ public abstract class WeaponAbstract : MonoBehaviour
             Destroy(bullet, 4f);
         }
     }
-    protected abstract void BulletContainerAnim(int index);
 
+    protected abstract void BulletContainerAnim(int index);
 
     protected void OnBulletLeftChange(int capacity, int left)
     {
@@ -161,8 +163,6 @@ public abstract class WeaponAbstract : MonoBehaviour
             StartCoroutine("ChangeWeaponCameraToDefaultPos");
         }
     }
-
-
     private IEnumerator ChangeWeaponCameraToAimPos()
     {
         while (weaponCamera.transform.localPosition != AimWeaponCameraPos)

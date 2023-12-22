@@ -79,12 +79,10 @@ public class PlayerMovement : MonoBehaviour
         OnMoveStateChanged?.Invoke(isRun);
         GetMoveAxis();
         if (moveDir != Vector3.zero)
-        {
             // Move
             characterController.Move(moveDir * Speed * Time.fixedDeltaTime);
-        }
-    }
 
+    }
     /// <summary>
     /// 获取前后左右虚拟轴
     /// </summary>
@@ -105,7 +103,6 @@ public class PlayerMovement : MonoBehaviour
 
     /// <summary>
     /// Check Palyer Is On The Groud
-    /// Fixme 当角色跳跃并下落时，只会下落到y轴为0.13就停止
     /// </summary>
     private void CheckGround()
     {
@@ -220,6 +217,10 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// 捡到血包
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.CompareTag("HealthPickUp"))

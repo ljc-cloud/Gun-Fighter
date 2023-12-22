@@ -8,12 +8,15 @@ public class Weapon02 : WeaponAbstract
     protected override void OnEnable()
     {
         base.OnEnable();
+        BulletContainerRatio = 0.3f;
+        BulletLeft = BulletCapacity;
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         PerBulletInterval = 0.5f;
         BulletStartVelocity = 200f;
         BulletCapacity = 2;

@@ -53,7 +53,7 @@ public class Enemy_HoverBotController : EnemyController
     public float ChaseSpeedRatio = 1.5f;
     public float AttackInterval = 0.5f;
     public float PatrolStopTime = 1f;
-    public float ExitAlertTime = 4f;
+    public float ExitAlertTime = 5f;
 
     [Header("Player Layer Mask")]
     public LayerMask PlayerLayer;
@@ -101,17 +101,11 @@ public class Enemy_HoverBotController : EnemyController
     private void SetEnemyState()
     {
         if (alerted)
-        {
             enemyState = Enemy_HoverBotState.CHASE;
-        }
         else if (IsGuard)
-        {
             enemyState = Enemy_HoverBotState.GUARD;
-        }
         else if (!alerted && !IsGuard && !death)
-        {
             enemyState = Enemy_HoverBotState.PATROL;
-        }
         switch (enemyState)
         {
             case Enemy_HoverBotState.GUARD:
@@ -178,7 +172,7 @@ public class Enemy_HoverBotController : EnemyController
             var lookDir = (PlayerTransform.position - transform.position).normalized;
             var tarRotation = Quaternion.LookRotation(lookDir);
             transform.rotation = Quaternion.Slerp(transform.rotation, tarRotation, 0.1f);
-           
+
             if ((Vector3.Angle(transform.forward, lookDir) < 12f) || !alerted)
             {
                 break;

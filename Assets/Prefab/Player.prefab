@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EyeViewTransform: {fileID: 1914456471577581878}
-  RotateSpeed: 200.3
+  RotateSpeed: 100
   RotateRatio: 1.21
   MaxYRotation: 80
   MinYRotation: -80
