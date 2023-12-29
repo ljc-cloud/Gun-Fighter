@@ -10,6 +10,7 @@ public class Weapon02 : WeaponAbstract
         base.OnEnable();
         BulletContainerRatio = 0.3f;
         BulletLeft = BulletCapacity;
+        reloadInvoke = false;
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
     }
@@ -20,17 +21,17 @@ public class Weapon02 : WeaponAbstract
         PerBulletInterval = 0.5f;
         BulletStartVelocity = 200f;
         BulletCapacity = 2;
-        BulletLeft = BulletCapacity;
         WeaponBackRatio = 0.3f;
         bulletContainerOutDistance = 0.04f;
     }
 
     protected override void Fire()
     {
+        Debug.Log(reloadInvoke);
         if (BulletLeft == 0 && !reloadInvoke)
         {
             StartCoroutine("Reload");
-            reloadInvoke = true;
+            //reloadInvoke = true;
         }
         if (Input.GetMouseButtonDown(0))
         {

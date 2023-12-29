@@ -12,8 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Move Speed")]
     public float Speed;
-    public float WalkSpeed = 5f;
-    public float RunSpeed = 8f;
+    public float WalkSpeed = 3f;
+    public float RunSpeed = 6f;
 
     [Header("Vertical Velocity")]
     public float GravityForce = -10f;

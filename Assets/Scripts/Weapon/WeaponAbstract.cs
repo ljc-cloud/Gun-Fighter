@@ -116,6 +116,7 @@ public abstract class WeaponAbstract : MonoBehaviour
                 yield return null;
             }
         }
+        Debug.Log(BulletCapacity);
         BulletLeft = BulletCapacity;
         OnBulletLeftChange(BulletCapacity, BulletLeft);
         reloadComplete = true;
